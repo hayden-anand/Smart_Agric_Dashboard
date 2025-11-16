@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Agri Login</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', 'Nunito Sans', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #0f766e;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+      position: relative;
+      width: 100%;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      background: #ffffffcc;
+    }
+
+    input[type="submit"] {
+      width: 95%;
+      padding: 12px;
+      background-color: #0f766e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0c5e58;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #0f766e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      form {
+        width: 90%;
+        padding: 30px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="submit"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <form action="main.html" method="get" onsubmit="return validateLogin()">
+    <h1>Smart Agri Login</h1>
+    <fieldset>
+      <div class="input-container">
+        <input type="text" id="name" placeholder="Enter Username" required>
+      </div>
+
+      <div class="input-container">
+        <input type="password" id="password" placeholder="Enter Password" required>
+      </div>
+
+      <input type="submit" value="Login">
+
+      <p><a href="#">Forgot Password?</a></p>
+      <p>Don't have an account? <a href="sign.html">Register Now</a></p>
+  </form>
+
+ <script>
+  function validateLogin() {
+    const username = document.getElementById("name").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const registeredUsername = localStorage.getItem("registeredUsername");
+    const registeredPassword = localStorage.getItem("registeredPassword");
+
+    if (!registeredUsername || !registeredPassword) {
+      alert("Invalid user and password.");
+      return false;
+    }
+
+    if (username === "" || password === "") {
+      alert("Please fill in all fields.");
+      return false;
+    }
+
+    if (username === registeredUsername && password === registeredPassword) {
+      alert("Login Successful!");
+      return true; 
+    } else {
+      alert("Invalid Username or Password!");
+      return false;
+    }
+  }
+</script>
+
+</body>
+
+</html>

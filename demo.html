@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Agri-Dashboard</title>
+  <link rel="icon" href="download (2).png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Nunito Sans', sans-serif;
+      background-color: #f0fdf4;
+    }
+
+    header {
+      background-color: #0f766e;
+      color: #ffffff;
+      text-align: center;
+      padding-bottom: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+
+    header h1 {
+      font-size: 1.8rem;
+      opacity: 0.95;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .nav-header {
+      background-color: #0c5e58;
+      padding: 0.8rem 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #e0f7ef;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    nav a i {
+      margin-right: 6px;
+      color: #e0f7ef;
+    }
+
+    nav a:hover i {
+      color: #ffffff;
+    }
+
+    #datetime {
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background-color: white;
+      color: #0f766e;
+      font-weight: 600;
+      display: block;
+     
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 25px;
+      padding: 30px;
+      justify-items: center;
+    }
+
+   
+    .card {
+      background: white;
+      border-radius: 14px;
+      border-top:6px solid #0c5e58;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      height: 320px;
+      width: 100%;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-header i {
+      font-size: 1.8rem;
+      color: #0f766e;
+    }
+
+    .card h2 {
+      font-size: 1.6rem;
+      color: #0f766e;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .metric {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    .sub-info {
+      font-size: 0.95rem;
+      color: #6b7280;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .progress-container {
+      width: 100%;
+      margin-top: 20px;
+      max-width: 400px;
+      margin-bottom: 10px;
+      background-color: #e5e7eb;
+      border-radius: 10px;
+    }
+
+    .progress-bar {
+      height: 14px;
+      border-radius: 10px;
+      background-color: #0f766e;
+    }
+
+    #soilBar {
+      width: 72%;
+    }
+
+    #tempBar {
+      width: 29%;
+    }
+
+    #humBar {
+      width: 58%;
+    }
+
+    #healBar {
+      width: 80%;
+    }
+
+    .status {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    #soilStatus {
+      color: #16a34a;
+    }
+
+    #tempStatus {
+      color: #dc2626;
+    }
+
+    #humidStatus {
+      color: #ca8a04;
+    }
+
+    #healthStatus {
+      color: #0f766e;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #0f766e;
+      color: white;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .analytics {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 468px) {
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #datetime {
+        margin-top: 10px;
+      }
+
+      footer {
+        font-size: 12px;
+        height: auto;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="top-header">
+      <h1>Smart Agri-Dashboard</h1>
+      <p>Real-Time Farm Monitoring & Crop Health Insights</p>
+    </div>
+
+    <div class="nav-header">
+      <nav>
+        <div class="links">
+          <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="analytic.html"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+          <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+        <div class="time-display">
+          <i class="fa-regular fa-clock"></i> <span id="datetime"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <div class="card soil">
+      <div class="card-header">
+        <i class="fa-solid fa-seedling"></i>
+        <h2>Soil Moisture</h2>
+      </div>
+      <div class="metric" id="soilVal"></div>
+      <div class="sub-info">Current soil water</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="soilBar"></div>
+      </div>
+      <div class="status" id="soilStatus"></div>
+      <div class="sub-info">Ideal range: 60% - 80%</div>
+    </div>
+
+    <div class="card temp">
+      <div class="card-header">
+        <i class="fa-solid fa-temperature-three-quarters"></i>
+        <h2>Temperature</h2>
+      </div>
+      <div class="metric" id="tempVal"></div>
+      <div class="sub-info">Average temperature</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="tempBar"></div>
+      </div>
+      <div class="status" id="tempStatus"></div>
+      <div class="sub-info">Ideal range: 25°C - 32°C</div>
+    </div>
+
+    <div class="card humid">
+      <div class="card-header">
+        <i class="fa-solid fa-droplet"></i>
+        <h2>Humidity</h2>
+      </div>
+      <div class="metric" id="humidVal"></div>
+      <div class="sub-info">Air moisture percentage</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="humBar"></div>
+      </div>
+      <div class="status" id="humidStatus"></div>
+      <div class="sub-info">Ideal range: 50% - 70%</div>
+    </div>
+
+    <div class="card health">
+      <div class="card-header">
+        <i class="fa-solid fa-leaf"></i>
+        <h2>Crop Health</h2>
+      </div>
+      <div class="metric" id="healthVal"></div>
+      <div class="sub-info">Crop health status</div>
+      <div class="progress-container">
+        <div class="progress-bar" id="healBar"></div>
+      </div>
+      <div class="status" id="healthStatus"></div>
+      <div class="sub-info">Last scan: 2 hours ago</div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Smart Agri-Dashboard
+  </footer>
+
+  <script>
+    function updateDateTime() {
+      document.getElementById("datetime").innerHTML =Date();
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    const farmData = {
+      soil: { value: 72, status: "Optimal" },
+      temp: { value: 29, status: "Stable" },
+      humid: { value: 58, status: "Moderate" },
+      health: { value: "Healthy", status: "No Disease Detected" }
+    };
+
+    function displayData() {
+      document.getElementById("soilVal").textContent = `${farmData.soil.value}%`;
+      document.getElementById("soilStatus").textContent = farmData.soil.status;
+      document.getElementById("tempVal").textContent = `${farmData.temp.value}°C`;
+      document.getElementById("tempStatus").textContent = farmData.temp.status;
+      document.getElementById("humidVal").textContent = `${farmData.humid.value}%`;
+      document.getElementById("humidStatus").textContent = farmData.humid.status;
+      document.getElementById("healthVal").textContent = farmData.health.value;
+      document.getElementById("healthStatus").textContent = farmData.health.status;
+    }
+
+    displayData();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Agri-Dashboard</title>
+  <link rel="icon" href="download (2).png">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* 🌱 RESET & BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Nunito Sans', sans-serif;
+      background-color: #f0fdf4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 🌿 HEADER */
+    header {
+      background: linear-gradient(90deg, #0d9488, #0f766e);
+      color: #ffffff;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .top-header {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .nav-header {
+      background-color: #0c5e58;
+      padding: 0.8rem 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #e0f7ef;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    nav a i {
+      margin-right: 6px;
+    }
+
+    #datetime {
+      font-size: 1rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background-color: white;
+      color: #0f766e;
+      font-weight: 600;
+      display: inline-block;
+      min-width: 120px;
+    }
+
+    /* 🧩 DASHBOARD */
+    main.dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 40px 30px;
+      flex: 1;
+    }
+
+    /* 🌾 CARD STYLING */
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: all 0.3s ease;
+      border-top: 6px solid #0f766e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background-color: #f9fffc;
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      color: #0f766e;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-top: 6px;
+      color: #333;
+    }
+
+    /* 🌈 ICON COLORS */
+    .soil h2 i {
+      color: #22c55e;
+    }
+
+    .temp h2 i {
+      color: #f59e0b;
+    }
+
+    .humid h2 i {
+      color: #3b82f6;
+    }
+
+    .health h2 i {
+      color: #10b981;
+    }
+
+    /* 📊 ANALYTICS SECTION */
+    .analytics {
+      grid-column: span 3;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 35px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .analytics h2 {
+      color: #0f766e;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 🌾 FLOATING LOGO */
+    #fix {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border-radius: 50%;
+      height: 70px;
+      width: 70px;
+      opacity: 0.9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+    }
+
+    #fix:hover {
+      transform: scale(1.1);
+    }
+
+    /* 🌿 FOOTER */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(90deg, #0d9488, #0f766e);
+      color: white;
+      border-top: 3px solid #d1fae5;
+    }
+
+    footer h3 {
+      color: #a7f3d0;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    footer ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 5px;
+    }
+
+    footer li {
+      margin: 3px 0;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🌿 HEADER -->
+  <header>
+    <div class="top-header">
+      <h1>Smart Agri-Dashboard</h1>
+      <p>Farm Monitoring & Crop Health Insights</p>
+    </div>
+
+    <div class="nav-header">
+      <nav>
+        <div class="links">
+          <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+        </div>
+        <div class="time-display">
+          <i class="fa-regular fa-clock"></i> <span id="datetime"></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🌾 DASHBOARD -->
+  <main class="dashboard" role="main">
+    <div class="card soil">
+      <h2><i class="fa-solid fa-droplet"></i> Soil Moisture</h2>
+      <p id="soilVal"></p>
+      <p id="soilStatus"></p>
+    </div>
+
+    <div class="card temp">
+      <h2><i class="fa-solid fa-temperature-three-quarters"></i> Temperature</h2>
+      <p id="tempVal"></p>
+      <p id="tempStatus"></p>
+    </div>
+
+    <div class="card humid">
+      <h2><i class="fa-solid fa-water"></i> Humidity</h2>
+      <p id="humidVal"></p>
+      <p id="humidStatus"></p>
+    </div>
+
+    <div class="card health">
+      <h2><i class="fa-solid fa-leaf"></i> Crop Health</h2>
+      <p id="healthVal"></p>
+      <p id="healthStatus"></p>
+    </div>
+
+    <div class="analytics">
+      <h2>Farm Analytics Overview</h2>
+      <canvas id="farmChart" height="120"></canvas>
+      <p style="margin-top: 12px; color: #555;">Last updated: <span id="lastUpdate"></span></p>
+    </div>
+
+    <div class="logo-fix">
+      <img id="fix" src="download (2).png" alt="Smart Agri Logo">
+    </div>
+  </main>
+
+  <!-- 🌾 FOOTER -->
+  <footer role="contentinfo">
+    © 2025 Smart Agri-Dashboard
+    <h3>Team 1</h3>
+    <ul>
+      <li>Hayden Anand</li>
+      <li>Arjun Barath</li>
+      <li>Sathya Swarub</li>
+      <li>Subash</li>
+    </ul>
+  </footer>
+
+  <!-- 🌱 SCRIPT -->
+  <script>
+    // Show Date & Time (static)
+    const now = new Date();
+    document.getElementById("datetime").textContent =
+      now.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+
+    document.getElementById("lastUpdate").textContent =
+      now.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+
+    // Static Predefined Data
+    const farmData = {
+      soil: { value: 72, status: "Optimal" },
+      temp: { value: 29, status: "Stable" },
+      humid: { value: 58, status: "Moderate" },
+      health: { value: "Healthy", status: "No Disease Detected" }
+    };
+
+    // Display Data
+    document.getElementById("soilVal").textContent = `Current: ${farmData.soil.value}%`;
+    document.getElementById("soilStatus").textContent = `Status: ${farmData.soil.status}`;
+    document.getElementById("tempVal").textContent = `Current: ${farmData.temp.value}°C`;
+    document.getElementById("tempStatus").textContent = `Status: ${farmData.temp.status}`;
+    document.getElementById("humidVal").textContent = `Current: ${farmData.humid.value}%`;
+    document.getElementById("humidStatus").textContent = `Status: ${farmData.humid.status}`;
+    document.getElementById("healthVal").textContent = `AI Scan: ${farmData.health.value}`;
+    document.getElementById("healthStatus").textContent = `Status: ${farmData.health.status}`;
+
+    const ctx = document.getElementById('farmChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Soil Moisture', 'Temperature', 'Humidity'],
+        datasets: [{
+          label: 'Farm Metrics',
+          data: [farmData.soil.value, farmData.temp.value, farmData.humid.value],
+          backgroundColor: ['#22c55e', '#f59e0b', '#3b82f6'],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(0,0,0,0.05)' }
+          },
+          x: { grid: { display: false } }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  </script>
+</body>
+
+</html>

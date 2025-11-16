@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Agri-Dashboard | Analytics</title>
+  <link rel="icon" href="download (2).png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', 'Nunito Sans', sans-serif;
+      background: linear-gradient(to bottom right, #f0fdf4, #dcfce7);
+      color: #1f2937;
+      min-height: 100vh;
+    }
+
+    a.back {
+      display: inline-block;
+      margin: 20px;
+      padding: 10px 22px;
+      background-color: #0f766e;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+   
+
+    main {
+      display: grid;
+      grid-template-areas:
+        "bar bar"
+        "line line"
+        "pie doughnut"
+        "area area";
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      padding: 25px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .analytics {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      padding: 25px 20px 30px;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid #e2e8f0;
+    }
+
+   
+
+    .analytics h2 {
+      color: #0f766e;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+
+    canvas {
+      width: 100%;
+      height: 340px !important;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 12px;
+      background: #0f766e;
+      color: white;
+      font-size: 0.95rem;
+      margin-top: 40px;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .bar { grid-area: bar; }
+    .line { grid-area: line; }
+    .pie { grid-area: pie; }
+    .doughnut { grid-area: doughnut; }
+    .area { grid-area: area; }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-areas:
+          "bar"
+          "line"
+          "pie"
+          "doughnut"
+          "area";
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="main.html" class="back"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+  <main>
+    <div class="analytics bar">
+      <h2>Weekly Overview</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+
+    <div class="analytics line">
+      <h2>Soil Moisture & Temperature Trends</h2>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <div class="analytics pie">
+      <h2>Crop Health Distribution</h2>
+      <canvas id="pieChart"></canvas>
+    </div>
+
+    <div class="analytics doughnut">
+      <h2>Humidity Pattern</h2>
+      <canvas id="doughnutChart"></canvas>
+    </div>
+
+    <div class="analytics area">
+      <h2>Temperature Progress</h2>
+      <canvas id="areaChart"></canvas>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Smart Agri-Dashboard | Analytics Overview
+  </footer>
+
+  <script>
+    
+    new Chart(document.getElementById("barChart"), {
+      type: "bar",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [
+          { label: "Soil Moisture (%)", data: [68, 70, 71, 73, 74, 72, 69], backgroundColor: "#16a34a" },
+          { label: "Temperature (°C)", data: [25, 26, 27, 28, 29, 27, 25], backgroundColor: "#f97316" },
+          { label: "Humidity (%)", data: [60, 62, 64, 65, 63, 66, 64], backgroundColor: "#0ea5e9" },
+          { label: "Crop Health (%)", data: [80, 82, 85, 86, 87, 86, 84], backgroundColor: "#84cc16" }
+        ]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+
+    new Chart(document.getElementById("lineChart"), {
+      type: "line",
+      data: {
+        labels: ["6AM", "8AM", "10AM", "12PM", "2PM", "4PM", "6PM"],
+        datasets: [
+          { label: "Soil Moisture (%)", data: [65, 68, 70, 72, 75, 73, 71], borderColor: "#2563eb", backgroundColor: "#2563eb20", fill: true, tension: 0.4 },
+          { label: "Temperature (°C)", data: [23, 24, 25, 27, 28, 26, 24], borderColor: "#f97316", backgroundColor: "#f9731620", fill: true, tension: 0.4 }
+        ]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { beginAtZero: false } }
+      }
+    });
+  
+    new Chart(document.getElementById("pieChart"), {
+      type: "pie",
+      data: {
+        labels: ["Healthy", "Moderate", "Unhealthy"],
+        datasets: [{ data: [65, 25, 10], backgroundColor: ["#16a34a", "#facc15", "#ef4444"], borderWidth: 2 }]
+      },
+      options: { plugins: { legend: { position: 'bottom' } } }
+    });
+
+    new Chart(document.getElementById("doughnutChart"), {
+      type: "doughnut",
+      data: {
+        labels: ["Morning", "Noon", "Evening"],
+        datasets: [{ data: [30, 50, 20], backgroundColor: ["#0ea5e9", "#34d399", "#fbbf24"], borderWidth: 2 }]
+      },
+      options: { plugins: { legend: { position: 'bottom' } } }
+    });
+
+    new Chart(document.getElementById("areaChart"), {
+      type: "line",
+      data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+        datasets: [{
+          label: "Temperature",
+          data: [22, 25, 27, 28, 30, 32, 29],
+          borderColor: "#f59e0b",
+          backgroundColor: "#fbbf2430",
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { beginAtZero: false } }
+      }
+    });
+  </script>
+</body>
+
+</html>

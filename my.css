@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Agri-Dashboard</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Nunito Sans', sans-serif;
+            background: #f0f7f4;
+        }
+
+        header {
+            background-color: #0f766e;
+            color: #ffffff;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-header {
+            padding: 1.2rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            opacity: 0.95;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .nav-header {
+            background-color: #0c5e58;
+            padding: 0.8rem;
+            text-align: center;
+        }
+
+        .nav-header nav a {
+            color: #e0f7ef;
+            text-decoration: none;
+            margin: 0 1.2rem;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .nav-header nav a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+           
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 340px;
+            height: 320px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card.soil {
+            border-left: 6px solid #2e8b57;
+            transition: .3s;
+        }
+
+        .card.soil:hover {
+            border-left: none;
+            border-bottom: 6px solid #2e8b57;
+        }
+
+        .card.temp {
+            border-left: 6px solid #f97316;
+        }
+
+        .card.temp:hover {
+            border-left: none;
+            border-bottom: 6px solid #f97316;
+        }
+
+        .card.humid {
+            border-left: 6px solid #3b82f6;
+        }
+
+
+        .card.humid:hover {
+            border-left: none;
+            border-bottom: 6px solid #3b82f6;
+        }
+
+
+        .card.health {
+            border-left: 6px solid #22c55e;
+        }
+
+        .card.health:hover {
+            border-left: none;
+            border-bottom: 6px solid #22c55e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #0f766e;
+            color: white;
+            width: 100%;
+
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #datetime {
+            font-size: 0.9rem;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: white;
+            color: black;
+            width: 60px;
+        }
+
+        nav a i {
+            margin-right: 6px;
+            color: #e0f7ef;
+        }
+
+        nav a:hover i {
+            color: #ffffff;
+        }
+
+        @media (max-width:768px) {
+            
+        .dashboard {
+            display: grid;
+            grid-template-columns: auto;
+            gap: 20px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="top-header">
+            <h1> Smart Agri-Dashboard</h1>
+            <p>Real-Time Farm Monitoring & Crop Health Insights</p>
+
+        </div>
+
+        <div class="nav-header">
+            <nav>
+                <div>
+                    <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+                    <a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+                    <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                </div>
+                <div>
+                    <p><i class="fa-regular fa-clock"></i> <span id="datetime"></span></p>
+
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <div class="card soil">
+            <h2> Soil Moisture</h2>
+        </div>
+        <div class="card temp">
+            <h2> Temperature</h2>
+        </div>
+        <div class="card humid">
+            <h2>Humidity</h2>
+        </div>
+        <div class="card health">
+            <h2>Crop Health</h2>
+        </div>
+    </main>
+
+    <footer>© 2025 Smart Agri-Dashboard</footer>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('datetime').innerText = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime(); 
+    </script>
+</body>
+
+</html>
